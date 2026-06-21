@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: shopwave-api
+    runtime: php
+    rootDir: backend-temp
+    region: oregon
+    plan: free
+    buildCommand: composer install --no-dev --optimize-autoloader
+    startCommand: bash start.sh
+    healthCheckPath: /up
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://shopwave-api.onrender.com
+      - key: FRONTEND_URL
+        value: https://frontend-six-sigma-69.vercel.app
+      - key: SANCTUM_STATEFUL_DOMAINS
+        value: frontend-six-sigma-69.vercel.app
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_DATABASE
+        value: shopwave
+      - key: DB_URL
+        fromDatabase:
+          name: shopwave-db
+          property: connectionString
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: SESSION_DOMAIN
+        value: .onrender.com
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: CACHE_STORE
+        value: file
+      - key: LOG_LEVEL
+        value: error
+
+databases:
+  - name: shopwave-db
+    databaseName: shopwave
+    region: oregon
+    plan: free
+    ipAllowList: []

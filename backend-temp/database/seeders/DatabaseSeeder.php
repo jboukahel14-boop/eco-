@@ -12,28 +12,20 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@shopwave.test',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@shopwave.test'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
 
-        $electronics = Category::create([
-            'name' => 'Electronics', 'slug' => 'electronics', 'description' => 'Gadgets and devices', 'sort_order' => 1,
-        ]);
-        $clothing = Category::create([
-            'name' => 'Clothing', 'slug' => 'clothing', 'description' => 'Apparel and fashion', 'sort_order' => 2,
-        ]);
-        $home = Category::create([
-            'name' => 'Home & Living', 'slug' => 'home-living', 'description' => 'Home decor and essentials', 'sort_order' => 3,
-        ]);
-        $accessories = Category::create([
-            'name' => 'Accessories', 'slug' => 'accessories', 'description' => 'Bags, watches, and more', 'sort_order' => 4,
-        ]);
-        $newArrivals = Category::create([
-            'name' => 'New Arrivals', 'slug' => 'new-arrivals', 'description' => 'Latest products', 'sort_order' => 0,
-        ]);
+        $electronics = Category::firstOrCreate(['slug' => 'electronics'], ['name' => 'Electronics', 'description' => 'Gadgets and devices', 'sort_order' => 1]);
+        $clothing = Category::firstOrCreate(['slug' => 'clothing'], ['name' => 'Clothing', 'description' => 'Apparel and fashion', 'sort_order' => 2]);
+        $home = Category::firstOrCreate(['slug' => 'home-living'], ['name' => 'Home & Living', 'description' => 'Home decor and essentials', 'sort_order' => 3]);
+        $accessories = Category::firstOrCreate(['slug' => 'accessories'], ['name' => 'Accessories', 'description' => 'Bags, watches, and more', 'sort_order' => 4]);
+        $newArrivals = Category::firstOrCreate(['slug' => 'new-arrivals'], ['name' => 'New Arrivals', 'description' => 'Latest products', 'sort_order' => 0]);
 
         $products = [
             [
@@ -121,7 +113,7 @@ class DatabaseSeeder extends Seeder
         foreach ($products as $data) {
             $categories = $data['categories'];
             unset($data['categories']);
-            $product = Product::create($data);
+            $product = Product::firstOrCreate(['slug' => $data['slug']], $data);
             $product->categories()->sync($categories);
         }
     }
