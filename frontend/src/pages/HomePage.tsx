@@ -22,8 +22,8 @@ export function HomePage() {
   useEffect(() => {
     api
       .getProducts({ sort: 'sold_count', direction: 'desc', per_page: 8 })
-      .then((res) => setFeaturedProducts(res.data))
-      .catch(() => {})
+      .then((res) => setFeaturedProducts(Array.isArray(res.data) ? res.data : []))
+      .catch(() => setFeaturedProducts([]))
       .finally(() => setIsLoading(false));
   }, []);
 

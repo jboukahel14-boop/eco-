@@ -24,7 +24,7 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
     );
   }
 
-  if (products.length === 0) {
+  if (!products || products.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}

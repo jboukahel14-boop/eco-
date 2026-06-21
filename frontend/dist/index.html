@@ -8,10 +8,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <title>ShopWave - Modern E-Commerce</title>
-    <script type="module" crossorigin src="/assets/index-CcbibFkX.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-MiyQC7Dd.css">
+    <script type="module" crossorigin src="/assets/index-E4xUyOuj.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BEFsygJS.css">
   </head>
   <body class="bg-surface-50 text-surface-900 antialiased">
-    <div id="root"></div>
+    <div id="root"><div style="padding:40px;text-align:center;font-family:sans-serif;color:#475569">Loading...</div></div>
+    <script>
+      window.__errors = [];
+      window.onerror = function(msg, url, line, col, err) {
+        window.__errors.push({ msg: msg, url: url, line: line, col: col });
+        var stack = err && err.stack ? err.stack.replace(/[<>]/g,'') : 'no stack';
+        var el = document.getElementById('root');
+        if (el) el.innerHTML = '<div style="padding:20px;margin:20px;border:2px solid red;border-radius:8px;font-family:sans-serif"><h2 style="color:red;margin:0 0 10px">JS Error</h2><pre style="white-space:pre-wrap;color:#333;font-size:13px">' + msg + '\n\n' + stack.slice(0,2000) + '</pre></div>';
+      };
+      window.addEventListener('unhandledrejection', function(e) {
+        window.__errors.push({ reason: e.reason });
+        var stack = e.reason && e.reason.stack ? e.reason.stack.replace(/[<>]/g,'') : 'no stack';
+        var el = document.getElementById('root');
+        if (el) el.innerHTML = '<div style="padding:20px;margin:20px;border:2px solid red;border-radius:8px;font-family:sans-serif"><h2 style="color:red;margin:0 0 10px">Unhandled Promise</h2><pre style="white-space:pre-wrap;color:#333;font-size:13px">' + (e.reason?.message || e.reason) + '\n\n' + stack.slice(0,2000) + '</pre></div>';
+      });
+    </script>
   </body>
 </html>

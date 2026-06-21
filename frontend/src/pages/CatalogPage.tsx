@@ -31,7 +31,7 @@ export function CatalogPage() {
     setIsLoading(true);
     try {
       const res = await api.getProducts(filters);
-      setProducts(res.data);
+      setProducts(Array.isArray(res.data) ? res.data : []);
       setTotal(res.meta.total);
       setLastPage(res.meta.last_page);
     } catch {
