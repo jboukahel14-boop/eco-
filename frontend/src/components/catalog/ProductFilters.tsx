@@ -11,13 +11,13 @@ interface ProductFiltersProps {
   onToggle: () => void;
 }
 
-const sortOptions = [
+const sortOptions: { value: string; label: string; direction?: string }[] = [
   { value: 'created_at', label: 'Newest' },
-  { value: 'price', label: 'Price: Low to High' },
+  { value: 'price', label: 'Price: Low to High', direction: 'asc' },
   { value: 'price', label: 'Price: High to Low', direction: 'desc' },
   { value: 'rating', label: 'Best Rated' },
   { value: 'sold_count', label: 'Best Selling' },
-] as const;
+];
 
 export function ProductFilters({ categories, filters, onChange, isOpen, onToggle }: ProductFiltersProps) {
   const updateFilter = (key: keyof Filters, value: string | number | boolean | undefined) => {

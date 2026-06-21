@@ -152,6 +152,9 @@ export interface PaginatedResponse<T> {
     per_page: number;
     total: number;
   };
+  filters?: {
+    categories: Category[];
+  };
 }
 
 export interface AdminMetrics {
